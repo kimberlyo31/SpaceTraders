@@ -1,4 +1,5 @@
 import httpx
+
 class BaseClient:
   def __init__(self, token: str):
     self.baseUrl = 'https://api.spacetraders.io/v2'

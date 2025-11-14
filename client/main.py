@@ -1,14 +1,12 @@
-import requests
-import json
-import sys
-from PySide6.QtWidgets import *
-import ship
+from SpaceTraders import SpaceTraders
+from AgentWrapper import AgentWrapper
 
 if __name__ == '__main__':
-    # response = requests.get('https://api.spacetraders.io/v2')
-    # print(json.dumps(response.json(), indent=2))
-    # app = QApplication(sys.argv)
-    # label = QLabel("Hello")
-    # label.show()
-    # sys.exit(app.exec())
-    ship.Ship.getCargo("GR1M-3")
+  token = open("agent_token","r").readline().strip()
+  st = SpaceTraders(token)
+  payload = st.agent.get_my_agent()
+  a = AgentWrapper(payload)
+  print(a.symbol)
+  
+    
+    
