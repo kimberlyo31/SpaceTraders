@@ -14,6 +14,6 @@ class BaseClient:
         res = self.session.get(self.baseUrl + path)
         return self._handle(res)
   
-  def post(self, path, payload):
-    res = self.session.post(self.baseUrl + path, json=payload or {})
+  def post(self, path, payload={}):
+    res = self.session.post(self.baseUrl + path, json=payload)
     return self._handle(res)
