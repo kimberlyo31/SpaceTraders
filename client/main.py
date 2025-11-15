@@ -1,4 +1,4 @@
-from SpaceTraders import SpaceTraders
+from client.space_traders_client import SpaceTraders
 from AgentWrapper import AgentWrapper
 import json
 

@@ -1,4 +1,4 @@
-from BaseClient import BaseClient
+from api.base_api import BaseClient
 
 class AgentClient(BaseClient):
   def get_my_agent(self):

@@ -1,4 +1,4 @@
-from BaseClient import BaseClient
+from api.base_api import BaseClient
 
 class ShipClient(BaseClient):
   
