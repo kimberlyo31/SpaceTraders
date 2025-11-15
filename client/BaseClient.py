@@ -17,3 +17,7 @@ class BaseClient:
   def post(self, path, payload={}):
     res = self.session.post(self.baseUrl + path, json=payload)
     return self._handle(res)
+  
+  def patch(self, path, payload={}):
+    res = self.session.patch(self.baseUrl + path, json=payload)
+    return self._handle(res)
