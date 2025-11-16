@@ -13,7 +13,7 @@ class Module:
   
   def from_json(payload):
     return Module(
-      symbol=payload['symbol'],
+      symbol=ModuleSymbol(payload['symbol']),
       name=payload['name'],
       description=payload['description'],
       requirements=Requirements.from_json(payload['requirements']),

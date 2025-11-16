@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from models.requirements import Requirements
+from enums import FrameSymbol
 
 @dataclass
 class Frame:
-  symbol: str
+  symbol: FrameSymbol
   name: str
   condition: float
   integrity: float
@@ -16,7 +17,7 @@ class Frame:
   
   def from_json(payload):
     return Frame(
-      symbol=payload['symbol'],
+      symbol=FrameSymbol(payload['symbol']),
       name=payload['name'],
       condition=payload['float'],
       integrity=payload['integrity'],

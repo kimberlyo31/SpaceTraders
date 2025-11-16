@@ -13,7 +13,7 @@ class Mount:
   
   def from_json(payload):
     return Mount(
-      symbol=payload['symbol'],
+      symbol=MountSymbol(payload['symbol']),
       name=payload['name'],
       description=payload['description'],
       requirements=Requirements.from_json(payload['requirements']),

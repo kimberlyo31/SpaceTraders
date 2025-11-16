@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 from models.requirements import Requirements
+from enums import ReactorSymbol
+
 @dataclass
 class Reactor:
-  symbol: str
+  symbol: ReactorSymbol
   name: str
   condition: float
   integrity: float
@@ -13,7 +15,7 @@ class Reactor:
   
   def from_json(payload):
     return Reactor(
-      symbol=payload['symbol'],
+      symbol=ReactorSymbol(payload['symbol']),
       name=payload['name'],
       condition=payload['float'],
       integrity=payload['integrity'],

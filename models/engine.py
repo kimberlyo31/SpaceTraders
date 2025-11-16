@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 from models.requirements import Requirements
+from enums import EngineSymbol
+
 @dataclass
 class Engine:
-  symbol: str
+  symbol: EngineSymbol
   name: str
   condition: float
   integrity: float
@@ -13,7 +15,7 @@ class Engine:
   
   def from_json(payload):
     return Engine(
-      symbol=payload['symbol'],
+      symbol=EngineSymbol(payload['symbol']),
       name=payload['name'],
       condition=payload['float'],
       integrity=payload['integrity'],
