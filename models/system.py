@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enums import SystemType, WaypointType
+from enums import SystemType, WaypointType, WaypointModifierSymbol, WaypointTraitSymbol
 from faction import Faction
 
 @dataclass
@@ -11,9 +11,29 @@ class WaypointOrbital:
 
 @dataclass
 class WaypointModifier:
+  symbol: WaypointModifierSymbol
+  name: str
+  description: str
   
   def from_json(payload):
-    return WaypointModifier()
+    return WaypointTrait(
+      symbol=WaypointModifierSymbol(payload['symbol']),
+      name=payload['name'],
+      description=payload['description']
+    )
+  
+@dataclass
+class WaypointTrait:
+  symbol: WaypointTraitSymbol
+  name: str
+  description: str
+  
+  def from_json(payload):
+    return WaypointTrait(
+      symbol=WaypointTraitSymbol(payload['symbol']),
+      name=payload['name'],
+      description=payload['description']
+    )
   
 @dataclass
 class Waypoint:
