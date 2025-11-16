@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from models.requirements import Requirements
 @dataclass
 class Engine:
   symbol: str
@@ -8,9 +8,7 @@ class Engine:
   integrity: float
   description: str
   speed: int
-  req_power: int
-  req_crew: int
-  req_slots: int
+  requirements: Requirements
   quality: int
   
   def from_json(payload):
@@ -21,8 +19,6 @@ class Engine:
       integrity=payload['integrity'],
       description=payload['description'],
       speed=payload['speed'],
-      req_power=payload['requirements']['power'],
-      req_crew=payload['requirements']['crew'],
-      req_slots=payload['requirements']['slots'],
+      requirements=Requirements.from_json(payload['requirements']),
       quality=payload['quality']
     )

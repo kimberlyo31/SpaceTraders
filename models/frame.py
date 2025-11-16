@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from models.requirements import Requirements
 
 @dataclass
 class Frame:
@@ -10,9 +11,7 @@ class Frame:
   module_slots: int
   mounting_points: int
   fuel_capacity: int
-  req_power: int
-  req_crew: int
-  req_slots: int
+  requirements: Requirements
   quality: int
   
   def from_json(payload):
@@ -25,8 +24,6 @@ class Frame:
       module_slots=payload['moduleSlots'],
       mounting_points=payload['mountingPoints'],
       fuel_capacity=payload['fuelCapacity'],
-      req_power=payload['requirements']['power'],
-      req_crew=payload['requirements']['crew'],
-      req_slots=payload['requirements']['slots'],
+      requirements=Requirements.from_json(payload['requirements']),
       quality=payload['quality']
     )

@@ -1,24 +1,22 @@
 from dataclasses import dataclass
+from enums import MountSymbol,Deposits
 from models.requirements import Requirements
+
 @dataclass
-class Reactor:
-  symbol: str
+class Mount:
+  symbol: MountSymbol
   name: str
-  condition: float
-  integrity: float
   description: str
-  power_output: int
-  requirements: Requirements
-  quality: int
+  requirements: Requirements 
+  strength: int | None = None
+  deposits: list[Deposits] | None = None
   
   def from_json(payload):
-    return Reactor(
+    return Mount(
       symbol=payload['symbol'],
       name=payload['name'],
-      condition=payload['float'],
-      integrity=payload['integrity'],
       description=payload['description'],
-      power_output=payload['powerOutput'],
       requirements=Requirements.from_json(payload['requirements']),
-      quality=payload['quality']
-    )
+      strength=payload.get("strength"),
+      deposits=[Deposits(d) for d in payload.get("deposits", [])]
+      )

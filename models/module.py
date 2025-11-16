@@ -1,24 +1,22 @@
 from dataclasses import dataclass
+from enums import ModuleSymbol
 from models.requirements import Requirements
+
 @dataclass
-class Reactor:
-  symbol: str
+class Module:
+  symbol: ModuleSymbol
   name: str
-  condition: float
-  integrity: float
   description: str
-  power_output: int
-  requirements: Requirements
-  quality: int
+  requirements: Requirements 
+  capacity: int | None = None
+  range: int | None = None
   
   def from_json(payload):
-    return Reactor(
+    return Module(
       symbol=payload['symbol'],
       name=payload['name'],
-      condition=payload['float'],
-      integrity=payload['integrity'],
       description=payload['description'],
-      power_output=payload['powerOutput'],
       requirements=Requirements.from_json(payload['requirements']),
-      quality=payload['quality']
-    )
+      capacity=payload['capacity'],
+      range=payload['range']
+      )
