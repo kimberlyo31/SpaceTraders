@@ -455,3 +455,26 @@ class ContractType(Enum):
   PROCUREMENT= "PROCUREMENT"
   TRANSPORT= "TRANSPORT"
   SHUTTLE = "SHUTTLE"
+  
+class TransactionType(Enum):
+  PURCHASE="PURCHASE"
+  SELL="SELL"
+  
+
+class Supply(Enum):
+  SCARCE = "SCARCE"
+  LIMITED = "LIMITED"
+  MODERATE = "MODERATE"
+  HIGH = "HIGH"
+  ABUNDANT = "ABUNDANT"
+    
+class Activity(Enum):
+  WEAK = "WEAK"
+  GROWING = "GROWING"
+  STRONG = "STRONG"
+  RESTRICTED = "RESTRICTED"
+
+class TradeType(Enum):
+  EXPORT = "EXPORT"
+  IMPORT = "IMPORT"
+  EXCHANGE = "EXCHANGE"
