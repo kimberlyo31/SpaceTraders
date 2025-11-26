@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enums import FactionSymbol, FactionTraitSymbol
+from src.enums import FactionSymbol, FactionTraitSymbol
 @dataclass
 class FactionTrait:
   symbol: FactionTraitSymbol
