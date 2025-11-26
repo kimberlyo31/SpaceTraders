@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enums import TradeGoodSymbol
+from src.enums import TradeGoodSymbol
 
 @dataclass
 class ConstructionMaterial:

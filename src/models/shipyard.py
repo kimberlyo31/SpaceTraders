@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enums import ShipType, Activity, Supply
+from src.enums import ShipType, Activity, Supply
 from ship import Frame, Reactor, Engine, Module, Mount, Crew
 
 

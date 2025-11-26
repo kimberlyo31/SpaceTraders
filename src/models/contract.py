@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enums import TradeGoodSymbol,ContractType
+from src.enums import TradeGoodSymbol,ContractType
 
 @dataclass
 class Payment:

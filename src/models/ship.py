@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from market import TradeGood
-from enums import Deposits, EngineSymbol, FlightMode, FrameSymbol, ModuleSymbol, MountSymbol, ReactorSymbol, ShipRole, CrewRotation, ShipStatus, WaypointType
+from src.enums import Deposits, EngineSymbol, FlightMode, FrameSymbol, ModuleSymbol, MountSymbol, ReactorSymbol, ShipRole, CrewRotation, ShipStatus, WaypointType
 
 
 @dataclass

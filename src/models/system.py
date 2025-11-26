@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enums import SystemType, WaypointType, WaypointModifierSymbol, WaypointTraitSymbol
+from src.enums import SystemType, WaypointType, WaypointModifierSymbol, WaypointTraitSymbol
 from faction import Faction
 from agent import Agent
 
