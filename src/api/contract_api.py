@@ -1,6 +1,6 @@
 from api.base_api import BaseClient
 
-class ContactClient(BaseClient):
+class ContractClient(BaseClient):
   
   def list_contracts(self):
     return self.get("/my/contracts")
