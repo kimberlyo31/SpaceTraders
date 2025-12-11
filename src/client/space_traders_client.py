@@ -1,6 +1,6 @@
-from api.agent_api import AgentClient
-from api.ship_api import ShipClient
-from api.contract_api import ContractClient
+from src.api.agent_api import AgentClient
+from src.api.ship_api import ShipClient
+from src.api.contract_api import ContractClient
 
 class SpaceTraders:
   def __init__(self,token):

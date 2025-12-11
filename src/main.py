@@ -1,11 +1,19 @@
+import json
+import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from client.space_traders_client import SpaceTraders
+from src.client.space_traders_client import SpaceTraders
+from src.models.ship import *
+from src.client.db import Database
 
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-token = open("agent_token","r").readline().strip()
+base_dir = os.path.dirname(__file__)
+token_path = os.path.join(base_dir, "agent_token")
+
+with open(token_path, "r") as f:
+  token = f.readline().strip()
 st = SpaceTraders(token)
 
 class ShipRequest(BaseModel):
@@ -18,7 +26,8 @@ class WaypointRequest(BaseModel):
 # print(st.agent.get_my_agent())
 @app.get("/api/ships")
 def get_ships():
-    return st.ship.list_ships()
+  res = st.ship.get_ship()
+  return st.ship.list_ships()
 
 @app.get("/api/contracts")
 def get_contracts():
@@ -51,3 +60,12 @@ def scan_system(req: ShipRequest):
         # Log the error so you know what went wrong
         print("Error in scan_ship:", e)
         raise
+      
+if __name__ == "__main__":
+  res = st.ship.list_ships()
+  db = Database("kospacetraders.sqlite")
+  for r in res:
+    s = Ship.from_json(r)
+    # print(s.nav.to_json())
+    db.insert_ship(s)
+  db.close() 

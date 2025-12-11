@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from src.enums import SystemType, WaypointType, WaypointModifierSymbol, WaypointTraitSymbol
-from faction import Faction
-from agent import Agent
+from .faction import Faction
+from .agent import Agent
 
 @dataclass
 class WaypointOrbital:
