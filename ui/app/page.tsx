@@ -1,47 +1,53 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ShipList from "../components/ShipList";
-import ContractList from "../components/ContractList";
-import ActionButton from "../components/ActionButton";
+import Sidebar from "../components/Sidebar";
+import FleetPanel from "../components/FleetPanel";
+import ContractPanel from "../components/ContractsPanel";
+import SystemPanel from "../components/SystemPanel";
+import * as Interfaces from "../interfaces";
+import ContractDetailsPanel from "@/components/ContractDetailsPanel";
 
 export default function Home() {
-  const [ships, setShips] = useState([]);
-  const [contracts, setContracts] = useState([]);
+  const [contracts, setContracts] = useState<Interfaces.Contract[]>([]);
+  const [selectedContract, setSelectedContract] = useState<Interfaces.Contract | null>(null);
+  const [activeSection, setActiveSection] = useState<string>("fleet");
+  const [ships, setShips] = useState<Interfaces.Ship[]>([]);
+  const [systems, setSystems] = useState<Interfaces.System[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/api/ships")
-      .then(res => res.json())
-      .then(setShips);
+      .then((res) => res.json())
+      .then((data: Interfaces.Ship[]) => setShips(data));
 
-    // fetch("http://localhost:8000/api/contracts")
-    //   .then(res => res.json())
-    //   .then(setContracts);
+    fetch("http://localhost:8000/api/contracts")
+      .then((res) => res.json())
+      .then((data: Interfaces.Contract[]) => setContracts(data));
   }, []);
 
-  const handleRefresh = () => {
-    fetch("http://localhost:8000/api/refresh")
-      .then(res => res.json())
-      .then(data => {
-        setShips(data.ships);
-        setContracts(data.contracts);
-      });
-  };
-
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">SpaceTraders Dashboard</h1>
-      <ActionButton text="Refresh Data" onClick={handleRefresh} />
+    <div className="flex h-screen bg-gradient-to-br from-black via-gray-900 to-black text-gray-100">
+      <Sidebar active={activeSection} onSelect={setActiveSection} />
 
-      <div className="mt-6">
-        <h2 className="text-2xl font-semibold mb-2">Fleet</h2>
-        <ShipList ships={ships} />
-      </div>
+      {activeSection === "fleet" && (
+        <FleetPanel ships={ships} />
+      )}
 
-      {/* <div className="mt-6">
-        <h2 className="text-2xl font-semibold mb-2">Contracts</h2>
-        <ContractList contracts={contracts} />
-      </div> */}
+      {activeSection === "contracts" && (
+        <>
+          <ContractPanel
+            contracts={contracts}
+            onSelectContract={setSelectedContract}
+          />
+          {selectedContract && (
+            <ContractDetailsPanel contract={selectedContract} />
+          )}
+        </>
+      )}
+
+      {activeSection === "systems" && (
+        <SystemPanel systems={systems} />
+      )}
     </div>
   );
 }
