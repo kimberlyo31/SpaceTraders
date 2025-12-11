@@ -1,4 +1,5 @@
 import httpx
+from .errors import ShipCooldownError
 
 class BaseClient:
   def __init__(self, token: str):
@@ -7,8 +8,14 @@ class BaseClient:
       headers={"Authorization": f"Bearer {token}","Content-Type": "application/json"}
     )
     
-  def _handle(self,response):
-    return response.json()["data"]
+  def _handle(self, response):
+    json_resp = response.json()
+    if "error" in json_resp:
+        if "cooldown" in json_resp["error"]["data"]:
+            raise ShipCooldownError(json_resp["error"]["data"]["cooldown"])
+        else:
+            raise Exception(json_resp["error"]["message"])
+    return json_resp.get("data", json_resp)
   
   def get(self, path):
         res = self.session.get(self.baseUrl + path)
