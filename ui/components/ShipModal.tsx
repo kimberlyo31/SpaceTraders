@@ -1,29 +1,29 @@
-import { Ship } from "../interfaces";
-
+import { Ship,Waypoint } from "../interfaces";
+import { useEffect, useState } from "react";
 interface Props {
   ship: Ship;
   onClose: () => void;
+  onScan: (waypoints: Waypoint[]) => void;
 }
 
-export default function ShipModal({ ship, onClose }: Props) {
+export default function ShipModal({ ship, onClose, onScan }: Props) {
   const takeAction = async (action: "dock" | "orbit" | "scan") => {
-    await fetch(`http://localhost:8000/api/${action}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ symbol: ship.symbol }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(`${action} result:`, data);
+    try {
+      const res = await fetch(`http://localhost:8000/api/${action}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ symbol: ship.symbol }),
+      });
 
-        // For SCAN, you want to push new systems into page state
-        if (action === "scan" && data.systems) {
-          // Optionally update UI or bubble this up to parent if needed
-        }
-      })
-      .catch(err => console.error(err));
+      const data = await res.json();
+      console.log(`${action} result:`, data);
+
+      if (action === "scan" && data.waypoints) {
+        onScan(data.waypoints);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

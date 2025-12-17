@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from src.enums import TradeGoodSymbol, TransactionType, TradeType, Supply, Activity
-
+from enums import TradeGoodSymbol, TransactionType, TradeType, Supply, Activity
+from .modelhelper import mserialize
 @dataclass
 class TradeGood:
   symbol: TradeGoodSymbol
@@ -16,7 +16,8 @@ class TradeGood:
       description=payload["description"],
       units=payload["units"]
     )
-
+  def to_json(self):
+    return mserialize(self)
 @dataclass
 class MarketTradeGood:
   symbol: TradeGoodSymbol
@@ -38,7 +39,8 @@ class MarketTradeGood:
       sell_price=payload['sellPrice'],
       activity=Activity(payload['activity']) if payload.get('activity') else None
     ) 
-  
+  def to_json(self):
+    return mserialize(self)  
 @dataclass
 class ImportExport:
   symbol: TradeGoodSymbol
@@ -52,7 +54,8 @@ class ImportExport:
       name=payload['name'],
       description=payload['description']
     )
-        
+  def to_json(self):
+    return mserialize(self)        
 @dataclass
 class Transaction:
   waypoint_symbol: str
@@ -76,7 +79,8 @@ class Transaction:
       total_price=payload['totalPrice'],
       timestamp=payload['timestamp']
     )
-
+  def to_json(self):
+    return mserialize(self)
 @dataclass
 class Market:
   symbol: str
@@ -98,5 +102,6 @@ class Market:
       tradegood=[MarketTradeGood.from_json(tg) for tg in payload.get("tradeGoods", [])]
         if payload.get("tradeGoods") else None
     )
-  
+  def to_json(self):
+    return mserialize(self)  
   

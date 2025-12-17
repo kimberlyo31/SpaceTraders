@@ -3,7 +3,7 @@ import ShipCard from "./ShipCard";
 import ShipModal from "./ShipModal";
 import { Ship, FleetPanelProps } from "../interfaces";
 
-export default function FleetPanel({ ships }: FleetPanelProps) {
+export default function FleetPanel({ ships, onScanWaypoints  }: FleetPanelProps) {
   const [selectedShip, setSelectedShip] = useState<Ship | null>(null);
 
   return (
@@ -24,6 +24,7 @@ export default function FleetPanel({ ships }: FleetPanelProps) {
         <ShipModal
           ship={selectedShip}
           onClose={() => setSelectedShip(null)}
+          onScan={onScanWaypoints}
         />
       )}
     </div>
