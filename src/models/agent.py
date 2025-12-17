@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from .modelhelper import mserialize
 @dataclass
 class Agent:
   accountId: str
@@ -19,3 +19,5 @@ class Agent:
       starting_faction=payload['startingFaction'],
       ship_count=payload['shipCount']
     )
+  def to_json(self):
+    return mserialize(self)

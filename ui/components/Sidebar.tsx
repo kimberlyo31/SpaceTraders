@@ -4,7 +4,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ active, onSelect }: SidebarProps) {
-  const items = ["fleet", "agent", "contracts", "systems"];
+  const items = ["fleet", "agent", "contracts", "systems", "waypoints"];
 
   return (
     <div className="w-52 panel-glass border-r border-cyan-400/30 glow-cyan p-4 flex flex-col">

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from src.enums import ShipType, Activity, Supply
 from ship import Frame, Reactor, Engine, Module, Mount, Crew
-
+from .modelhelper import mserialize
 
 @dataclass
 class ShipyardShip:
@@ -34,7 +34,8 @@ class ShipyardShip:
       crew=Crew(payload['crew']),
       activity=payload.get('activity')
     )
-
+  def to_json(self):
+    return mserialize(self)
 @dataclass
 class ShipyardTransaction:
   waypoint_symbol: str
@@ -52,7 +53,8 @@ class ShipyardTransaction:
       agent_symbol=payload['agentSymbol'],
       timestamp=payload['timestamp']
     )
-    
+  def to_json(self):
+    return mserialize(self)    
 @dataclass
 class Shipyard:
   symbol: str
@@ -70,3 +72,5 @@ class Shipyard:
       ships=[ShipyardShip.from_json(item) for item in payload["ships"]],
       modifications_fee=payload['modificationsFee']
     )
+  def to_json(self):
+    return mserialize(self)

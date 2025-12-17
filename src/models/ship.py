@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from .modelhelper import serialize
+from .modelhelper import mserialize
 from .market import TradeGood
-from src.enums import Deposits, EngineSymbol, FlightMode, FrameSymbol, ModuleSymbol, MountSymbol, ReactorSymbol, ShipRole, CrewRotation, ShipStatus, WaypointType
+from enums import Deposits, EngineSymbol, FlightMode, FrameSymbol, ModuleSymbol, MountSymbol, ReactorSymbol, ShipRole, CrewRotation, ShipStatus, WaypointType
 from enum import Enum
 
 
@@ -20,7 +20,7 @@ class Cargo:
     )
   
   def to_json(self):
-    return serialize(self)
+    return mserialize(self)
 @dataclass
 class Cooldown:
   ship_symbol: str
@@ -36,7 +36,7 @@ class Cooldown:
       expiration=payload.get('expiration')
     )
   def to_json(self):
-    return serialize(self)
+    return mserialize(self)
 @dataclass
 class Crew:
   current: int
@@ -57,7 +57,7 @@ class Crew:
       wages=payload["wages"]
     )
   def to_json(self):
-    return serialize(self)
+    return mserialize(self)
 @dataclass
 class Requirements:
   crew: int
@@ -72,7 +72,7 @@ class Requirements:
       slots=payload.get('slots')
     )
   def to_json(self):
-    return serialize(self)
+    return mserialize(self)
 @dataclass
 class Engine:
   symbol: EngineSymbol
@@ -97,7 +97,7 @@ class Engine:
       quality=payload['quality']
     )
   def to_json(self):
-    return serialize(self)    
+    return mserialize(self)    
 @dataclass
 class Frame:
   symbol: FrameSymbol
@@ -126,7 +126,7 @@ class Frame:
       quality=payload['quality']
     )
   def to_json(self):
-    return serialize(self)    
+    return mserialize(self)    
 @dataclass
 class Fuel:
   current: int
@@ -143,7 +143,7 @@ class Fuel:
       timestamp=payload['consumed']['timestamp']
     )
   def to_json(self):
-    return serialize(self)    
+    return mserialize(self)    
 @dataclass 
 class Location:
   symbol: str
@@ -162,7 +162,7 @@ class Location:
       y=payload['y']
     )
   def to_json(self):
-    return serialize(self)    
+    return mserialize(self)    
 @dataclass
 class Module:
   symbol: ModuleSymbol
@@ -183,7 +183,7 @@ class Module:
       range=payload.get('range')
       )
   def to_json(self):
-    return serialize(self)    
+    return mserialize(self)    
 @dataclass
 class Mount:
   symbol: MountSymbol
@@ -204,7 +204,7 @@ class Mount:
       deposits=[Deposits(d) for d in payload.get("deposits", [])]
       )
   def to_json(self):
-    return serialize(self)
+    return mserialize(self)
 @dataclass
 class Route:
   destination: Location
@@ -221,7 +221,7 @@ class Route:
       arrival_time=payload['arrival']
     )   
   def to_json(self):
-    return serialize(self)
+    return mserialize(self)
 @dataclass
 class Nav:
   system_symbol: str
@@ -240,7 +240,7 @@ class Nav:
       flight_mode=FlightMode(payload['flightMode'])
     )
   def to_json(self):
-    return serialize(self)    
+    return mserialize(self)    
 @dataclass
 class Reactor:
   symbol: ReactorSymbol
@@ -265,7 +265,7 @@ class Reactor:
       quality=payload['quality']
     )
   def to_json(self):
-    return serialize(self)    
+    return mserialize(self)    
 
 @dataclass
 class Ship:
@@ -303,4 +303,4 @@ class Ship:
       cooldown=Cooldown.from_json(payload['cooldown'])
     )
   def to_json(self):
-    return serialize(self)
+    return mserialize(self)

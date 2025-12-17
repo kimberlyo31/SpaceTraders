@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from src.enums import FactionSymbol, FactionTraitSymbol
+from enums import FactionSymbol, FactionTraitSymbol
+from .modelhelper import mserialize
 @dataclass
 class FactionTrait:
   symbol: FactionTraitSymbol
@@ -12,7 +13,8 @@ class FactionTrait:
       name=payload['name'],
       description=payload['description']
     )
-    
+  def to_json(self):
+    return mserialize(self)    
 @dataclass
 class Faction:
   symbol: FactionSymbol
@@ -22,12 +24,14 @@ class Faction:
   traits: list[FactionTrait]
   is_recruiting: bool
   
-  def from_json(payload):
+  def from_json(payload: dict):
     return Faction(
-      symbol=FactionSymbol(payload['symbol']),
-      name=payload['name'],
-      description=payload['description'],
-      headquarters=payload['headquarters'],
-      traits=[FactionTrait.from_json(f) for f in payload["traits"]],
-      is_recruiting=payload['is_recruiting'],
+      symbol=FactionSymbol(payload.get('symbol')),
+      name=payload.get('name'),
+      description=payload.get('description'),
+      headquarters=payload.get('headquarters'),
+      traits=[FactionTrait.from_json(f) for f in payload.get('traits')]if payload.get('faction') else None,
+      is_recruiting=payload.get('is_recruiting'),
     )
+  def to_json(self):
+    return mserialize(self)

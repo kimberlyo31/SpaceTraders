@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from src.enums import TradeGoodSymbol,ContractType
-
+from .modelhelper import mserialize
 @dataclass
 class Payment:
   on_accepted: int
@@ -12,7 +12,8 @@ class Payment:
       on_accepted=payload['onAccepted'],
       on_fulfilled=payload['onFulfilled']
     )
-    
+  def to_json(self):
+    return mserialize(self)    
 @dataclass
 class Deliver:
   trade_symbol: TradeGoodSymbol
@@ -28,6 +29,8 @@ class Deliver:
       units_required=payload['unitsRequired'],
       units_fulfilled=payload['unitsFulfilled']
     )
+  def to_json(self):
+    return mserialize(self)
 @dataclass
 class Terms:
   deadline: str
@@ -41,7 +44,8 @@ class Terms:
       payment=Payment(payload['payment']),
       deliver=Deliver(payload.get('deliver'))
     )
-    
+  def to_json(self):
+    return mserialize(self)    
 @dataclass
 class Contract:
   id: str
@@ -63,4 +67,5 @@ class Contract:
       fulfilled=payload['fulfilled'],
       deadline_to_accept=payload.get('deadlineToAccept')
     )
-  
+  def to_json(self):
+    return mserialize(self)

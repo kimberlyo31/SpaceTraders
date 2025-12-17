@@ -2,8 +2,8 @@ from .base_api import BaseClient
 
 class SystemClient(BaseClient):
   
-  def list_systems(self):
-    return self.get("/systems")
+  def list_systems(self, page, limit):
+    return self.get(f"/systems?page={page}&limit={limit}")
   
   def get_system(self, system_symbol):
     return self.get(f"/systems/{system_symbol}")
